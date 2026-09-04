@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プライバシーポリシー - ファイル入れくん</title>
+  <style>
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #333;
+      line-height: 1.8;
+    }
+    h1 { font-size: 24px; border-bottom: 2px solid #4285f4; padding-bottom: 10px; }
+    h2 { font-size: 18px; margin-top: 32px; color: #4285f4; }
+    h3 { font-size: 16px; margin-top: 20px; }
+    p, li { font-size: 15px; }
+    ul { padding-left: 20px; }
+    ol { padding-left: 22px; }
+    code { background: #f4f4f4; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+    .updated { color: #888; font-size: 13px; }
+    .note { background: #fff8dc; border-left: 4px solid #f4b400; padding: 10px 14px; margin: 16px 0; }
+    .contact { background: #e8f0fe; border-left: 4px solid #4285f4; padding: 10px 14px; margin: 16px 0; font-size: 14px; }
+    .purpose { background: #eef7ee; border-left: 4px solid #34a853; padding: 12px 14px; margin: 16px 0; }
+    .pledge { background: #e8f0fe; border-left: 4px solid #4285f4; padding: 10px 14px; margin: 16px 0; }
+    table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+    th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #e8f0fe; }
+    </style>
+</head>
+<body>
+  <h1>プライバシーポリシー</h1>
+  <p class="updated">最終更新日: 2026年9月4日 ／ 対象バージョン: v1.0.1</p>
+
+  <p>本プライバシーポリシーは、Chrome拡張機能「<strong>ファイル入れくん</strong>」（以下「本拡張機能」）における
+  ユーザーデータの取り扱いについて説明します。</p>
+
+  <!-- 1 -->
+  <h2>1. この拡張機能について</h2>
+  <div class="purpose">
+    「ファイル入れくん」は、パソコンのフォルダに置いた書類ファイルに決まった形の名前を付け直し、
+    電子カルテ「デジカル」（<code>https://digikar.jp</code>）で開いている患者のファイル欄へ登録する拡張機能です。<br>
+    開発者は個人（個人開発者）です。この拡張機能はサーバーを持たず、
+    <strong>利用者のパソコンの中と、利用者ご自身が契約している電子カルテとの間だけ</strong>で動きます。
+  </div>
+
+  <!-- 2 -->
+  <h2>2. 何を読み取るか</h2>
+
+  <h3>2-1. 患者に関する情報</h3>
+  <p>いま開いているカルテから、次の<strong>3つ</strong>を読み取ります。</p>
+  <table>
+    <tr><th>読み取るもの</th><th>どこから</th><th>何のために</th></tr>
+    <tr>
+      <td>患者ID（カルテの画面に出ている番号）</td>
+      <td>電子カルテの患者情報（<code>orca_patient_id</code>）</td>
+      <td>ファイル名の組み立てと、登録先の確認</td>
+    </tr>
+    <tr>
+      <td>カタカナ氏名（ふりがな）</td>
+      <td>電子カルテの患者情報（<code>kana_name</code>）</td>
+      <td>ファイル名の組み立てと、登録先の確認</td>
+    </tr>
+    <tr>
+      <td><strong>カルテ画面の見出しの文字</strong></td>
+      <td>カルテ画面の見出し（<code>h1</code>〜<code>h3</code>）</td>
+      <td><strong>いま開いている患者が、登録しようとしている相手と同じかを確かめるため</strong></td>
+    </tr>
+  </table>
+  <ul>
+    <li>電子カルテの返事には生年月日・住所・電話番号なども含まれますが、
+      <strong>患者IDとカタカナ氏名の2つ以外は取り出しません</strong>
+      （取り出し口をプログラムの1か所に限定しています）。</li>
+    <li><strong>カルテ画面の見出しの文字には、患者ID・氏名・年齢・性別が並んだ行が含まれます。</strong>
+      この文字は、電子カルテから受け取った患者情報と<strong>その場で見比べるためだけ</strong>に使います。
+      <strong>保存も外部送信もしません。</strong>見比べたあとに画面が持ち回るのは、電子カルテから受け取った
+      患者IDとカタカナ氏名だけで、見出しの文字そのものはどこにも残りません。
+      見出しが読めないときは、見比べをやめるだけです。</li>
+    <li>あわせて、そのカルテに<strong>すでに登録されているファイルの表示名</strong>を読みます。
+      同じ名前が重ならないよう、通し番号を決めるためです。</li>
+  </ul>
+
+  <h3>2-2. 書類ファイル</h3>
+  <p>利用者が設定画面で指定したフォルダの中のファイル（名前・更新日時・中身）を読みます。
+  読むのは<strong>利用者が指定したフォルダだけ</strong>で、パソコンの他の場所は読みません。</p>
+
+  <h3>2-3. ログイン中の「合鍵」（<code>XSRF-TOKEN</code>）</h3>
+  <div class="pledge">
+    カルテへファイルを登録するとき、電子カルテがブラウザに預けている<strong>合鍵</strong>
+    （<code>XSRF-TOKEN</code> という名前の Cookie）を読み取り、<strong>登録の要求に添えて</strong>送ります。
+    <ul>
+      <li><strong>なぜ必要か</strong>：電子カルテは「その要求が、本当にログイン中のご本人の操作から出たものか」を
+        確かめるため、この合鍵を添えることを求めています
+        （よそのページから勝手に登録される「なりすまし」を防ぐしくみです）。
+        添えない要求は、電子カルテの側で断られます。</li>
+      <li>添えて送る先は、その電子カルテ（<code>https://digikar.jp</code>）<strong>だけ</strong>です。</li>
+      <li><strong>保存も外部送信もしません。</strong>登録の要求を組み立てているあいだだけ扱い、
+        終われば残りません。記録（ログ）にも出しません。</li>
+      <li>合鍵が読めなかったときは、<strong>登録そのものを行いません</strong>（合鍵なしで送ることはしません）。</li>
+    </ul>
+  </div>
+
+  <h3>2-4. 読み取らないもの</h3>
+  <ul>
+    <li>閲覧履歴、他のウェブサイトの内容、位置情報、操作の記録</li>
+    <li>ログインのパスワード、電子カルテのアカウント情報
+      （ログインの扱いはブラウザに任せており、この拡張機能は保存しません）</li>
+  </ul>
+
+  <!-- 3 -->
+  <h2>3. 何のために使うか</h2>
+  <p>読み取った情報の使いみちは、次の3つだけです。</p>
+  <ol>
+    <li><strong>ファイル名の組み立て</strong><br>
+      例：<code>20260904_テストタロウ_9999999_診療情報提供書_1.pdf</code><br>
+      （どの部品を使うか・どの順に並べるかは、利用者が設定画面で決められます）</li>
+    <li><strong>登録先の確認（取り違えの防止）</strong><br>
+      カルテ画面の<strong>見出しの文字</strong>と、電子カルテから受け取った患者情報を突き合わせ、
+      食い違うときは<strong>登録を行いません</strong>。
+      見比べに使った見出しの文字は、その場かぎりで、保存も外部送信もしません。</li>
+    <li><strong>通し番号の決定</strong><br>
+      すでに同じ名前のファイルがあるときに、番号を付けて分けます。</li>
+  </ol>
+  <p>広告・利用状況の分析・行動の記録には、一切使いません。</p>
+
+  <!-- 4 -->
+  <h2>4. どこへ送るか</h2>
+  <p><strong>送り先は、利用者ご自身が契約している電子カルテ（<code>https://digikar.jp</code>）だけです。</strong></p>
+  <ul>
+    <li>開発者のサーバーはありません。</li>
+    <li>第三者のサーバー、分析サービス、広告事業者へは<strong>一切送りません</strong>。</li>
+    <li>送るのは、利用者が［カルテへ入れる］を押したときの
+      「患者の内部番号・付け直したファイル名・日付・ファイル本体」だけです。</li>
+    <li>あわせて、その電子カルテがなりすまし防止のために求める<strong>合鍵</strong>（<code>XSRF-TOKEN</code>）を
+      要求に添えます（「2-3. ログイン中の『合鍵』」を参照）。
+      合鍵は、その電子カルテから受け取ったものを<strong>同じ電子カルテへ返すだけ</strong>で、
+      保存も、ほかのどこかへの送信もしません。</li>
+  </ul>
+  <p>この点はプログラムの検査（<code>tests/store-bundle.test.js</code>）で機械的に見張っており、
+  コードの中に電子カルテ以外の宛先が1つでも書かれていると、検査が通らないようにしています。</p>
+
+  <!-- 5 -->
+  <h2>5. 何を保存するか</h2>
+  <p>保存先は<strong>利用者のパソコンの中（ブラウザ）だけ</strong>です。外部には保存しません。</p>
+
+  <h3>5-1. 設定（<code>chrome.storage.local</code>）</h3>
+  <table>
+    <tr><th>保存するもの</th><th>中身</th></tr>
+    <tr><td>書類の種類</td><td>一覧と並び順（利用者が追加・削除できます）</td></tr>
+    <tr><td>ファイル名の作り</td><td>部品（日付・カタカナ名・患者ID・書類の種類）の並び順と、使う／使わない</td></tr>
+    <tr><td>ミニタブの入切</td><td>「フォルダの許可を保つミニタブ」を使うかどうか</td></tr>
+    <tr><td>預かり</td><td>CSV で読み込んだ設定のうち、この版がまだ知らない行（次の版まで預かるもの）</td></tr>
+  </table>
+
+  <h3>5-2. フォルダの「取っ手」（IndexedDB）</h3>
+  <p>指定したフォルダをもう一度選ばずに使えるよう、フォルダの<strong>取っ手</strong>だけを保存します。
+  <strong>フォルダの中のファイル名や中身は保存しません。</strong></p>
+
+  <h3>5-3. 保存しないもの（重要）</h3>
+  <div class="note">
+    <ul>
+      <li><strong>患者の氏名・患者IDは保存しません。</strong>画面に出すために一時的に扱うだけで、
+        ブラウザを閉じれば残りません。</li>
+      <li><strong>カルテ画面の見出しの文字も保存しません。</strong>取り違えの確認に使うその場かぎりです。</li>
+      <li><strong>ログイン中の合鍵（<code>XSRF-TOKEN</code>）も保存しません。</strong>
+        登録の要求に添えるあいだだけ扱います。</li>
+      <li>書類ファイルの中身も保存しません（登録が終われば手元から離れます）。</li>
+      <li><strong>記録（ログ）にも残しません。</strong>この拡張機能は <code>console</code> へ何も出力しません。</li>
+    </ul>
+  </div>
+
+  <!-- 6 -->
+  <h2>6. 利用者が止められること</h2>
+  <table>
+    <tr><th>したいこと</th><th>操作</th></tr>
+    <tr><td>フォルダを読むのをやめる</td><td>設定画面の［フォルダの指定を忘れる］（たずねてから消します）</td></tr>
+    <tr><td>設定を最初に戻す</td><td>設定画面の［初期値に戻す］（預かりも一緒に消えます）</td></tr>
+    <tr><td>ミニタブを開かないようにする</td><td>設定画面のチェックを外す（<strong>はじめから「切」</strong>です）</td></tr>
+    <tr><td>すべてやめる</td><td>Chrome の拡張機能の画面から、無効にするか削除する</td></tr>
+  </table>
+  <p>拡張機能を削除すると、上の保存内容（設定・フォルダの取っ手）も一緒に消えます。</p>
+
+  <!-- 7 -->
+  <h2>7. 第三者提供・外部送信</h2>
+  <ul>
+    <li>個人情報を第三者へ<strong>販売・譲渡しません</strong>。</li>
+    <li>単一用途（書類の名前を付け直してカルテへ登録すること）と関係のない目的で、
+      <strong>使用も転送もしません</strong>。</li>
+    <li>信用力の判断や貸付を目的として、<strong>使用も転送もしません</strong>。</li>
+  </ul>
+
+  <!-- 8 -->
+  <h2>8. 権限について</h2>
+  <table>
+    <tr><th>権限</th><th>使いみち</th></tr>
+    <tr><td><code>storage</code></td><td>上の「5. 何を保存するか」の設定を、パソコンに覚えておくため</td></tr>
+    <tr><td><code>sidePanel</code></td><td>カルテを見ながら操作できるよう、操作画面を横に出すため</td></tr>
+    <tr><td><code>https://digikar.jp/*</code></td><td>患者の確認と、カルテへのファイル登録のため</td></tr>
+  </table>
+  <p>これ以外のウェブサイトを読む権限は持っていません。</p>
+
+  <!-- 9 -->
+  <h2>9. お問い合わせ</h2>
+  <div class="contact">
+    この拡張機能に関するお問い合わせは、GitHub リポジトリの Issue（課題）からお願いします。<br>
+    <a href="https://github.com/kumakuma-libe/privacy-policy-digikar-file-irekun/issues">https://github.com/kumakuma-libe/privacy-policy-digikar-file-irekun/issues</a>
+  </div>
+
+  <!-- 10 -->
+  <h2>10. 改定について</h2>
+  <p>内容を変えたときは、このページの「最終更新日」と「対象バージョン」を更新します。</p>
+  <table>
+    <tr><th>改訂日</th><th>対象バージョン</th><th>改訂の内容</th></tr>
+    <tr><td>2026年9月4日</td><td>v1.0.1</td><td>初版</td></tr>
+  </table>
+</body>
+</html>
